@@ -21,7 +21,7 @@ header .logo img {
 }
 /* stylelint-disable selector-list-comma-newline-after */
 body {
-    font-family: 'Roboto Mono', monospace !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 13px;
     letter-spacing: 0.5px;
 

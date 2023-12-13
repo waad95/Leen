@@ -1,6 +1,6 @@
 
 body {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Open Sans', sans-serif !important;
     background-color: #F6F6F6;
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@ body {
 
 /* Left section styling */
 .left-section {
-    width: 50%;
+    width: 100%;
     max-width: 600px;
     background-color: #fff;
     padding: 20px;

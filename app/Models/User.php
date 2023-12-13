@@ -12,6 +12,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +30,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'major_in_university',
+        'role',
     ];
 
     /**
@@ -41,5 +52,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role' => 'integer',
+
     ];
 }

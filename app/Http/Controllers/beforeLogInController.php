@@ -3,27 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Post;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class beforeLogInController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $posts = Post::with('writer', 'comments')->withCount(['likes', 'comments'])
@@ -41,14 +27,6 @@ class HomeController extends Controller
         }
         return view('home', ['xmlArray' => $xmlArray,'new_posts'=>$new_posts,'categories'=>$categories]);
     }
-
-  public function post_by_category($id){
-      $posts = Post::where('category_id','=',$id)->get();
-      $categories = Category::all();
-
-      return view('category_page', ['new_posts'=>$posts,'categories'=>$categories]);
-
-  }
 
     public function getPopularPosts()
     {
@@ -79,7 +57,7 @@ class HomeController extends Controller
             $postNode->addChild('author', htmlspecialchars($post->writer->name)); // Assuming the 'user' relation exists and it has a 'name' attribute
         }
 
-            return $xml->asXML();
+        return $xml->asXML();
     }
 
 

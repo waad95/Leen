@@ -15,24 +15,12 @@
                     <div style="margin-left: 25%; margin-right: 25%">
                         <div class="large-12 columns py-5">
                             <div class="owl-carousel owl-carousel1  owl-theme">
-                                <div class="item">
-                                    <a href="#">Roommates</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#">Books</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#">Courses</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#">Events</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#">Advice</a>
-                                </div>
-                                <div class="item">
-                                    <a href="#">Other</a>
-                                </div>
+                                @foreach($categories as $cat_data)
+                                    <div class="item">
+                                        <a href="{{route('category_id',$cat_data->id)}}">{{Str::lower($cat_data->name)}}</a>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -68,24 +56,16 @@
         <div class="wrapper">
 
             <div class="left-section">
-                <h2>Popular posts</h2>
-                @if(isset($xmlArray['post']) && is_array($xmlArray['post']))
+                <h2>All posts </h2>
+                @foreach ($new_posts as $post)
 
-                    @foreach ($xmlArray['post'] as $post)
-
-                        <div class="post">
-                            <a href="{{route('view_post',$post['id'])}}"><h1>{{ $post['title'] ?? 'No Title' }}</h1></a>
-                            <p>{{ Str::limit($post['content'] ?? 'No Content' ,100,'...')}}</p>
-                            <div class="date-author">{{ $post['date'] ?? 'No Date' }} |
-                                By {{ $post['author'] ?? 'Anonymous' }} | Likes {{ $post['likes'] ?? '0' }} |
-                                Comments {{ $post['comments'] ?? '0' }} </div>
-                            <div
-                                class="tag @if(Str::lower($post['category']) =='events') {{Str::lower($post['category'])}}_cat @else {{Str::lower($post['category'])}}@endif">{{ $post['category'] ?? 'No Date' }}</div>
-                        </div>
-                    @endforeach
-                @else
-                    <p>No posts found.</p>
-                @endif
+                    <div class="post">
+                        <a href="{{route('view_post',$post->id)}}"><h1>{{$post->post_topic}}</h1></a>
+                        <p>{{ Str::limit($post->post_content ,100,'...')}}</p>
+                        <div class="date-author">{{ $post->created_at->format('F,j,Y') }} | By  {{ $post->post_writer }} | Likes {{ $post->post_likes ?? '0' }} </div>
+                        <div class="tag @if(Str::lower($post->category->name) =='events') {{Str::lower($post->category->name)}}_cat @else {{Str::lower($post->category->name)}}@endif">{{ $post->category->name }}</div>
+                    </div>
+                @endforeach
             </div>
 
             <div class="right-section">
@@ -94,18 +74,16 @@
                     <h2>New Posts</h2>
 
                     <!-- Sample post, you can duplicate for more -->
-                    @if(isset($new_posts))
+                    {{--                    @if($new_posts != null)--}}
+                    @foreach($new_posts as $data)
+                        <div class="new-post">
+                            <a href="{{route('view_post',$data->id)}}"><p>{{Str::limit($data->post_topic,25,'...')}}</p></a>
+                            <div class="date-author">{{$data->created_at->format('F,j,Y')}}| By {{$data->writer->name}}</div>
+                        </div>
+                    @endforeach
 
-                        @foreach($new_posts as $data)
-                            <div class="new-post">
-                                <a href="{{route('view_post',$data->id)}}">
-                                    <p>{{Str::limit($data->post_topic,25,'...')}}</p></a>
-                                <div class="date-author">{{$data->created_at->format('F,j,Y')}}|
-                                    By {{$data->writer->name}}</div>
-                            </div>
-                        @endforeach
+                    {{--                    @endif--}}
 
-                    @endif
 
 
                 </div>
@@ -113,16 +91,12 @@
                     <h2>Categories</h2>
                     <!-- Sample post, you can duplicate for more -->
                     <div class="new-post">
-                        @if(isset($categories))
-
                         @foreach($categories as $cat_data)
 
                             <a href="{{route('category_id',$cat_data->id)}}">
-                                <div
-                                    class="tag @if(Str::lower($cat_data->name) == 'events'){{Str::lower($cat_data->name)}}_cat @else{{Str::lower($cat_data->name)}} @endif">{{Str::lower($cat_data->name)}}</div>
+                                <div class="tag @if(Str::lower($cat_data->name) == 'events'){{Str::lower($cat_data->name)}}_cat @else{{Str::lower($cat_data->name)}} @endif">{{Str::lower($cat_data->name)}}</div>
                             </a>
                         @endforeach
-                        @endif
 
                     </div>
 

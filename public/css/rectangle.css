@@ -45,7 +45,7 @@ h1 {
 
 
 body {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Open Sans', sans-serif !important;
     background-color: #F6F6F6;
     margin: 0;
     padding: 0;
@@ -54,16 +54,32 @@ body {
 .wrapper {
     display: flex;
     justify-content: space-between;
-    padding: 10%;
+    padding: 10% 10% 0.5% 10%;
+}
+
+.wrapper-comment {
+    display: flex;
+    justify-content: space-between;
+    padding: 0% 10% 5% 10%;
 }
 
 .left-section {
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow-x: auto;
     flex: 3;
     padding: 20px;
     border-radius: 10px;
     background-color: #FFFFFF;
 }
 
+.left-section-comment {
+    flex: 3;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
 .right-section {
     flex: 1;
     padding: 20px;
@@ -98,7 +114,12 @@ h2 {
 .roommate {
     background-color: #E58F65;
 }
-
+.advice {
+    background-color: #65cee5;
+}
+.events_cat{
+    background-color: #e56596;
+}
 .books {
     background-color: #71B495;
 }
